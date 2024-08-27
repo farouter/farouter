@@ -1,0 +1,47 @@
+<?php
+
+namespace {{ namespace }};
+
+class {{ class }} extends Resource
+{
+    /**
+     * The model the resource corresponds to.
+     *
+     * @var class-string<\{{ namespacedModel }}>
+     */
+    public static $model = \{{ namespacedModel }}::class;
+
+    /**
+     * The single value that should be used to represent the resource when being displayed.
+     */
+    public static ?string $title = null;
+
+    public function title(): ?string
+    {
+        return $this->title;
+    }
+
+    /**
+     * Get the fields displayed by the resource.
+     */
+    public function fields(): array
+    {
+        return [];
+    }
+
+    /**
+     * Get the filters available for the resource.
+     */
+    public function filters(): array
+    {
+        return [];
+    }
+
+    /**
+     * Get the actions available for the resource.
+     */
+    public function actions(): array
+    {
+        return [];
+    }
+}
