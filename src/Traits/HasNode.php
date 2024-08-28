@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 
 trait HasNode
 {
-    public ?int $___node_parent_id = null;
+    private $___PARENT_NODE = null;
 
     /**
      * Get the fillable attributes for the model.
@@ -19,7 +19,7 @@ trait HasNode
     {
         return [
             ...$this->fillable,
-            'node_parent_id',
+            'parent_node',
         ];
     }
 
@@ -33,15 +33,23 @@ trait HasNode
         parent::boot();
 
         static::creating(function (Model $model) {
-            $model->___node_parent_id = $model->node_parent_id;
+            $model->___PARENT_NODE = $model->parent_node;
 
-            unset($model->node_parent_id);
+            unset($model->parent_node);
         });
 
         static::created(function (Model $model) {
+            $parent_id = $model->___PARENT_NODE;
+            $path = Str::slug($model->name);
+
+            if ($model->___PARENT_NODE instanceof Model) {
+                $parent_id = $model->___PARENT_NODE->id;
+                $path = $model->___PARENT_NODE->path.'/'.$path;
+            }
+
             $model->node()->create([
-                'parent_id' => $model->___node_parent_id,
-                'path' => Str::slug($model->name),
+                'parent_id' => $parent_id,
+                'path' => $path,
             ]);
         });
     }

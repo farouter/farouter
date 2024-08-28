@@ -31,4 +31,9 @@ class Node extends Model
     {
         return $this->belongsTo(Node::class, 'parent_id');
     }
+
+    public function children()
+    {
+        return $this->hasMany(Node::class, 'parent_id');
+    }
 }

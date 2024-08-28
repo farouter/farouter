@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('nodes', function (Blueprint $table) {
             $table->id();
-            $table->string('nodeable_type');
-            $table->foreignId('nodeable_id');
+            $table->foreignId('parent_id')->nullable();
+            $table->string('nodal_type');
+            $table->foreignId('nodal_id');
             $table->string('path')->unique()->index();
             $table->timestamps();
         });
