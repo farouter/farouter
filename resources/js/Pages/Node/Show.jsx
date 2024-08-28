@@ -1,9 +1,13 @@
-import React from "react";
+import Guest from "../../Layouts/Guest";
 
-export default function () {
+const Show = () => {
   return (
     <div>
       <h1>Hwllo</h1>
     </div>
   );
-}
+};
+
+Show.layout = (page) => <Guest children={page} />;
+
+export default Show;
