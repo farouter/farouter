@@ -3,6 +3,8 @@
 namespace Farouter;
 
 use Farouter\Http\Middleware\HandleInertiaRequests;
+use Farouter\Http\Requests\FarouterRequest;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
 
@@ -24,11 +26,25 @@ class FarouterServiceProvider extends ServiceProvider
             ], 'assets');
         }
 
-        Route::group(['middleware' => [HandleInertiaRequests::class]], function () {
+        Route::group(['middleware' => ['web', HandleInertiaRequests::class]], function () {
             $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
         });
 
         $this->loadViewsFrom(__DIR__.'/../resources/views', 'farouter');
+
+        // $this->app->instance(FarouterRequest::class, function ($app, $request) {
+        //     return new FarouterRequest($request);
+        // });
+
+        $this->app->bind(FarouterRequest::class, function (Application $app) {
+            return FarouterRequest::createFrom($this->app->request);
+        });
+
+        // $this->app->afterResolving(FarouterRequest::class, function ($request, $app) {
+        //     if (! $app->bound(FarouterRequest::class)) {
+        //         $app->instance(FarouterRequest::class, $request);
+        //     }
+        // });
     }
 
     public function register()
