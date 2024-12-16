@@ -1,0 +1,17 @@
+<?php
+
+namespace App\Farouter\Nodes;
+
+class Root extends Node
+{
+    /**
+     * Define the dependencies of this node.
+     *
+     * Dependencies are other resources that are associated with this node,
+     * such as child resources or related entities.
+     */
+    public function dependencies(): array
+    {
+        return [];
+    }
+}

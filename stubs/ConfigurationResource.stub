@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Farouter\Resources;
+
+use Farouter\Configuration\Resource as ConfigurationResource;
+
+abstract class Resource extends ConfigurationResource
+{
+    //
+}

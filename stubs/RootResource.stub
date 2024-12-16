@@ -1,0 +1,46 @@
+<?php
+
+namespace App\Farouter\Resources;
+
+use Farouter\Fields\Text;
+use Farouter\Http\Requests\FarouterRequest;
+
+class Root extends Resource
+{
+    /**
+     * The model associated with this resource.
+     *
+     * @var string
+     */
+    public static $model = \App\Models\Root::class;
+
+    /**
+     * The attribute used as the display title for the resource.
+     *
+     * @var string
+     */
+    public static $title = 'title';
+
+    /**
+     * Define the fields available for this resource.
+     *
+     * @param  FarouterRequest  $request  The current request instance.
+     */
+    public function fields(FarouterRequest $request): array
+    {
+        return [
+            Text::make(__('Title'), 'title'),
+        ];
+    }
+
+    /**
+     * Define the dependencies of this resource.
+     *
+     * Dependencies are other resources that are associated with this resource,
+     * such as child resources or related entities.
+     */
+    public function dependencies(): array
+    {
+        return [];
+    }
+}

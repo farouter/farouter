@@ -1,0 +1,13 @@
+<?php
+
+namespace App\Farouter;
+
+use Farouter\Traits\LocaleHelper;
+
+enum Locale: int
+{
+    use LocaleHelper;
+
+    case EN = 0;
+    case UK = 1;
+}

@@ -1,0 +1,10 @@
+<?php
+
+namespace App\Farouter\Nodes;
+
+use Farouter\Configuration\Node as ConfigurationNode;
+
+abstract class Node extends ConfigurationNode
+{
+    //
+}
