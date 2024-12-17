@@ -2,6 +2,7 @@
 
 namespace Farouter;
 
+use Farouter\Http\Middleware\HandleFarouterInertiaRequests;
 use Farouter\Http\Requests\FarouterRequest;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,6 +24,12 @@ class FarouterServiceProvider extends ServiceProvider
         // For example, `$table->morphs('modelable')` will create `modelable_id` as a UUID instead of a big integer.
         // This ensures consistency in database design when using UUIDs as primary keys across your application.
         $this->app['db.schema']->morphUsingUuids();
+
+        // Додаємо middleware до групи "web"
+        $this->app['router']->pushMiddlewareToGroup('web', HandleFarouterInertiaRequests::class);
+
+        // Публікуємо шаблон Blade
+        $this->loadViewsFrom(__DIR__.'/../resources/views', 'farouter');
 
         // Завантаження веб-роутів
         $this->loadRoutesFrom(__DIR__.'/../routes/web.php');
@@ -57,6 +64,9 @@ class FarouterServiceProvider extends ServiceProvider
             __DIR__.'/../stubs/RootModel.stub' => app_path('Models/Root.php'),
             __DIR__.'/../stubs/RootNode.stub' => app_path('Farouter/Nodes/Root.php'),
             __DIR__.'/../stubs/RootResource.stub' => app_path('Farouter/Resources/Root.php'),
+
+            // Assets
+            __DIR__.'/../public/build' => public_path('vendor/farouter'),
         ], 'farouter-resources');
 
         if ($this->app->runningInConsole()) {
