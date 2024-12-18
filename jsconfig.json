@@ -1,0 +1,13 @@
+{
+  "extends": "../../jsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./",
+    "checkJs": true,
+    "jsx": "react-jsx",
+    "paths": {
+      "*": ["node_modules/*"],
+      "@/*": ["resources/js/*"]
+    }
+  },
+  "exclude": ["node_modules", "public"]
+}

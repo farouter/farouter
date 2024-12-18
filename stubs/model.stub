@@ -1,0 +1,17 @@
+<?php
+
+namespace {{ namespace }};
+
+use Farouter\Models\Nodeable;
+
+class {{ class }} extends Nodeable
+{
+    /**
+     * Attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        //
+    ];
+}

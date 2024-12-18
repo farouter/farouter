@@ -40,12 +40,12 @@ abstract class Resource implements JsonSerializable
      *
      * @param  mixed|null  $nodeable  The nodeable model associated with the resource.
      */
-    public function __construct($nodeable = null)
+    public function __construct(FarouterRequest $request, $nodeable = null)
     {
         $this->nodeable = $nodeable;
-
         // Initialize fields by calling the fields() method with the resolved request.
-        $this->fields = $this->fields(resolve(FarouterRequest::class));
+        $this->fields = $this->fields($request);
+
     }
 
     /**
@@ -120,6 +120,7 @@ abstract class Resource implements JsonSerializable
         return [
             'title' => $this->title(),
             'fields' => $this->fields,
+            'dependencies' => $this->dependencies(),
         ];
     }
 }

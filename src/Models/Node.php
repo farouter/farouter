@@ -5,6 +5,7 @@ namespace Farouter\Models;
 use App\Farouter\Locale;
 use Farouter\Models\Node\Path;
 use Farouter\Traits\LoadsRelationsWithoutRecursion;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
@@ -151,5 +152,10 @@ class Node extends Model
             parentKey: 'id',
             relatedKey: 'id'
         )->withPivot('depth');
+    }
+
+    public function scopeRoot(Builder $query)
+    {
+        $query->whereNull('parent_id');
     }
 }

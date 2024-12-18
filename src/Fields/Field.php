@@ -41,10 +41,19 @@ abstract class Field implements JsonSerializable
      */
     public mixed $value = null;
 
+    public array $rules = [];
+
     /**
      * The placeholder text for the field.
      */
     public ?string $placeholder = null;
+
+    public function rules(array $rules)
+    {
+        $this->rules = $rules;
+
+        return $this;
+    }
 
     /**
      * Create a new field instance.

@@ -20,7 +20,7 @@ class {{ class }} extends Resource
      *
      * @var string
      */
-    public static $title = 'id';
+    public static string $title = 'id';
 
     /**
      * Define the fields available for this resource.

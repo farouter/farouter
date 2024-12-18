@@ -19,7 +19,7 @@ class Root extends Resource
      *
      * @var string
      */
-    public static $title = 'title';
+    public static string $title = 'title';
 
     /**
      * Define the fields available for this resource.

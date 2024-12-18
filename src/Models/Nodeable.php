@@ -22,6 +22,11 @@ abstract class Nodeable extends Model
     protected ?Node $__creatingParentNode = null;
 
     /**
+     * Temporary variable to store the solid value during creation.
+     */
+    protected static ?string $__solid = null;
+
+    /**
      * Constructor of the model.
      * Automatically adds the `parentNode` attribute to `$fillable` for all child models.
      *
@@ -35,6 +40,16 @@ abstract class Nodeable extends Model
         if (! in_array('parentNode', $this->fillable)) {
             $this->fillable[] = 'parentNode';
         }
+    }
+
+    /**
+     * Adds a solid value for the node during creation.
+     */
+    public static function solid(string $value): static
+    {
+        static::$__solid = $value;
+
+        return new static;
     }
 
     /**
@@ -91,7 +106,9 @@ abstract class Nodeable extends Model
                     unset($model->attributes['parentNode']);
                 }
 
-                $model->createNode();
+                // Use the solid value and then reset it
+                $model->createNode(static::$__solid);
+                static::$__solid = null; // Reset for future usage
             });
         });
     }
@@ -104,12 +121,13 @@ abstract class Nodeable extends Model
      * - Links the node to its parent (if provided).
      * - Saves the node in the database.
      */
-    public function createNode(): void
+    public function createNode(?string $solid = null): void
     {
         $node = new Node([
             'nodeable_type' => static::class,
             'nodeable_id' => $this->getKey(),
             'parent_id' => $this->__creatingParentNode?->id,
+            'solid' => $solid, // Assign solid to 'solid' field
         ]);
 
         // Pass the parent instance to avoid extra database queries
