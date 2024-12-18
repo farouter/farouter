@@ -30,9 +30,9 @@ export default function Edit({ node, children }) {
         <div>CREATE</div>
         <div>
           {node.data.resource.dependencies.map((dependency, key) => (
-            <Link key={key} href={route("farouter::nodes.create", { node: node.data, nodeableType: dependency })}>
-              Create {dependency}
-            </Link>
+            <div key={key}>
+              <Link href={route("farouter::nodes.create", { node: node.data, nodeableType: dependency })}>Create {dependency}</Link>
+            </div>
           ))}
         </div>
       </div>

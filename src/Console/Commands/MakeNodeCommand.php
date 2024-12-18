@@ -3,6 +3,7 @@
 namespace Farouter\Console\Commands;
 
 use Illuminate\Console\GeneratorCommand;
+use Illuminate\Support\Str;
 
 class MakeNodeCommand extends GeneratorCommand
 {
@@ -46,5 +47,23 @@ class MakeNodeCommand extends GeneratorCommand
     protected function getDefaultNamespace($rootNamespace)
     {
         return $rootNamespace.'\\Farouter\\Nodes';
+    }
+
+    /**
+     * Replace placeholders in the stub file.
+     *
+     * @param  string  $stub
+     * @param  string  $name
+     * @return string
+     */
+    protected function replaceNamespace(&$stub, $name)
+    {
+        parent::replaceNamespace($stub, $name);
+
+        // Replace the {{ key }} placeholder with the lowercase class name
+        $className = class_basename($name);
+        $stub = str_replace('{{ key }}', Str::lower($className), $stub);
+
+        return $this;
     }
 }

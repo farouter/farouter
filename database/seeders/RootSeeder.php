@@ -12,7 +12,7 @@ class RootSeeder extends Seeder
      */
     public function run(): void
     {
-        Root::create([
+        Root::solid('root')->create([
             'title' => 'New website',
         ]);
     }

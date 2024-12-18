@@ -5,6 +5,11 @@ namespace {{ namespace }};
 class {{ class }} extends Node
 {
     /**
+     * A unique key identifier for the node.
+     */
+    public static string $key = "{{ key }}";
+
+    /**
      * Define the dependencies of this node.
      *
      * Dependencies are other resources that are associated with this node,

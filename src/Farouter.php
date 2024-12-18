@@ -2,6 +2,7 @@
 
 namespace Farouter;
 
+use Farouter\Models\Node;
 use Farouter\Models\Nodeable;
 
 class Farouter
@@ -21,17 +22,75 @@ class Farouter
         $resourceFiles = glob($resourcePath.'/*.php');
 
         foreach ($resourceFiles as $file) {
-            // Отримати ім'я класу на основі шляху
+            // Get the class name based on the file path
             $className = $resourceNamespace.'\\'.pathinfo($file, PATHINFO_FILENAME);
 
-            // Перевірити, чи клас існує та чи має статичну властивість $model
-            if (class_exists($className) && property_exists($className, 'model')) {
-                // Отримати значення статичної властивості $model
-                $resourceModel = $className::$model;
+            // Check if the class exists and is not abstract
+            if (class_exists($className)) {
+                $reflection = new \ReflectionClass($className);
 
-                // Перевірити, чи збігається модель
-                if ($resourceModel === get_class($model)) {
-                    return $className;
+                if ($reflection->isAbstract()) {
+                    continue;
+                }
+
+                // Check for the 'model' property and compare it with the model class
+                if ($reflection->hasProperty('model')) {
+                    $property = $reflection->getProperty('model');
+
+                    if ($property->isStatic()) {
+                        $resourceModel = $property->getValue();
+
+                        if ($resourceModel === get_class($model)) {
+                            return $className;
+                        }
+                    }
+                }
+            }
+        }
+
+        // Повертаємо null, якщо ресурс не знайдено
+        return null;
+    }
+
+    /**
+     * Resolve the resource class associated with the given model.
+     */
+    public static function resolveSolidForNode(Node $node): ?string
+    {
+        if (! $node->solid) {
+            return null;
+        }
+
+        // Шлях до директорії вузлів
+        $nodeNamespace = 'App\\Farouter\\Nodes';
+        $nodePath = app_path('Farouter/Nodes');
+
+        // Знайти всі PHP файли у директорії вузлів
+        $nodeFiles = glob($nodePath.'/*.php');
+
+        foreach ($nodeFiles as $file) {
+            // Get the class name based on the file path
+            $className = $nodeNamespace.'\\'.pathinfo($file, PATHINFO_FILENAME);
+
+            // Check if the class exists and is not abstract
+            if (class_exists($className)) {
+                $reflection = new \ReflectionClass($className);
+
+                if ($reflection->isAbstract()) {
+                    continue;
+                }
+
+                // Use ReflectionProperty to access the static 'key' property
+                if ($reflection->hasProperty('key')) {
+                    $property = $reflection->getProperty('key');
+
+                    if ($property->isStatic()) {
+                        $resourceKey = $property->getValue();
+
+                        if ($resourceKey === $node->solid) {
+                            return $className;
+                        }
+                    }
                 }
             }
         }

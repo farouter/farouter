@@ -2,6 +2,7 @@
 
 namespace Farouter\Configuration;
 
+use Farouter\Farouter;
 use Farouter\Http\Requests\FarouterRequest;
 use JsonSerializable;
 
@@ -110,17 +111,27 @@ abstract class Resource implements JsonSerializable
      */
     public function jsonSerialize(): array
     {
+        $dependencies = $this->dependencies();
+
         if ($this->nodeable) {
             foreach ($this->fields as $field) {
                 // Resolve each field's value based on the nodeable model.
                 $field->resolve($this->nodeable);
+            }
+
+            $solidClass = Farouter::resolveSolidForNode($this->nodeable->node);
+
+            if ($solidClass) {
+                $solid = new $solidClass($this->nodeable->node);
+
+                $dependencies = array_merge($dependencies, $solid->dependencies());
             }
         }
 
         return [
             'title' => $this->title(),
             'fields' => $this->fields,
-            'dependencies' => $this->dependencies(),
+            'dependencies' => $dependencies,
         ];
     }
 }
