@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import Form, { useForm } from "../../Components/Form";
 import { ResolveField } from "@/Components/Fields";
 import { Link } from "@inertiajs/react";
+import Panel from "@/Components/Panel";
 
 export default function Edit({ node, children }) {
   const getInitialData = (fields) => {
@@ -16,26 +17,24 @@ export default function Edit({ node, children }) {
   const form = useForm("patch", route("farouter::nodes.update", { node: node.data }), getInitialData(node.data.resource.fields));
 
   return (
-    <div className="bg-gray-300">
-      <div>The title: {node.data.resource.title}</div>
-      <Form formRef={form}>
-        {node.data.resource.fields.map((field, key) => (
-          <Form.Field key={key} mode="form" field={field} name={field.attribute} />
-        ))}
-
-        <Form.Submit>Save</Form.Submit>
-      </Form>
-
-      <div>
-        <div>CREATE</div>
-        <div>
-          {node.data.resource.dependencies.map((dependency, key) => (
-            <div key={key}>
-              <Link href={route("farouter::nodes.create", { node: node.data, nodeableType: dependency })}>Create {dependency}</Link>
-            </div>
+    <div className="flex flex-col gap-4">
+      <Panel title={`Editing ${node.data.resource.title}`}>
+        <Form formRef={form}>
+          {node.data.resource.fields.map((field, key) => (
+            <Form.Field key={key} mode="form" field={field} name={field.attribute} />
           ))}
-        </div>
-      </div>
+
+          <Form.Submit>Save</Form.Submit>
+        </Form>
+      </Panel>
+
+      <Panel title="Create">
+        {node.data.resource.dependencies.map((dependency, key) => (
+          <div key={key}>
+            <Link href={route("farouter::nodes.create", { node: node.data, nodeableType: dependency })}>Create {dependency}</Link>
+          </div>
+        ))}
+      </Panel>
 
       <div>Children</div>
       <table>

@@ -43,10 +43,12 @@ const Field = ({ mode, field, name, formRef = null, ...args }) => {
   }
 
   return (
-    <div>
-      <div>{field.name}</div>
-      <ResolveField mode={mode} field={field} value={formRef.data[name]} onChange={(e) => formRef.setData(name, e.target.value).forgetError(name)} onBlur={() => formRef.validate(name)} {...args} />
-      {formRef.invalid(name) && <Error>{formRef.errors[name]}</Error>}
+    <div className="grid grid-cols-12 gap-3 border-b dark:border-gray-700/50 py-4">
+      <div className="col-span-3 pl-4">{field.name}</div>
+      <div className="col-span-6">
+        <ResolveField mode={mode} field={field} value={formRef.data[name]} onChange={(e) => formRef.setData(name, e.target.value).forgetError(name)} onBlur={() => formRef.validate(name)} {...args} />
+        {formRef.invalid(name) && <Error>{formRef.errors[name]}</Error>}
+      </div>
     </div>
   );
 };

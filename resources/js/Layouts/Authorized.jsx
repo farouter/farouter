@@ -38,13 +38,18 @@ export default function Authorized({ children }) {
   }, [flash]);
 
   return (
-    <div className="bg-gray-100 flex h-full relative">
-      {message && <div className="absolute top-4 right-4 bg-gray-700 text-white">{message}</div>}
-      <div className="w-48 shrink-0">
+    <div className="flex h-full relative bg-slate-100 dark:bg-gray-800 text-gray-500 dark:text-gray-400">
+      {message && <div className="absolute top-4 right-4 dark:bg-gray-700 text-white">{message}</div>}
+      <div className="w-72 shrink-0 bg-white dark:bg-gray-900/40 border-r border-slate-300/50 dark:border-gray-700/50">
         <h3>Node Tree</h3>
         <NodeTree nodes={nodes.data} />
       </div>
-      <div className="bg-gray-200 grow">{children}</div>
+      <div className="grow">
+        <div className="py-4 px-6 border-b bg-white dark:bg-transparent dark:border-gray-700/50 flex">
+          <div className="bg-slate-100 dark:bg-gray-700/50 border border-slate-300/50 dark:border-gray-600/50 text-sm rounded-lg h-8 px-3 w-full max-w-lg flex items-center cursor-pointer">Search...</div>
+        </div>
+        <div className="py-4 px-6">{children}</div>
+      </div>
     </div>
   );
 }

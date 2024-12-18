@@ -10,7 +10,7 @@ export default function Create({ node, resource, nodeableType }) {
   const form = useForm("post", route("farouter::nodes.store", { node: node.data, nodeableType: nodeableType }), getInitialData(resource.fields));
 
   return (
-    <div className="bg-gray-300">
+    <div className="">
       <div>Parent node: {node.data.resource.title}</div>
       <Form formRef={form}>
         {resource.fields.map((field, key) => (
