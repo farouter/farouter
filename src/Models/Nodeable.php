@@ -118,6 +118,13 @@ abstract class Nodeable extends Model
                 static::$__solid = null; // Reset for future usage
             });
         });
+
+        static::deleting(function (Model $model) {
+            // Видаляємо пов’язаний вузол, якщо він існує
+            if ($model->node) {
+                $model->node->delete();
+            }
+        });
     }
 
     /**
