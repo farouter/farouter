@@ -14,4 +14,11 @@ class {{ class }} extends Nodeable
     protected $fillable = [
         //
     ];
+
+    /**
+     * Attributes that are translatable.
+     */
+    protected static array $translatable = [
+        //
+    ];
 }

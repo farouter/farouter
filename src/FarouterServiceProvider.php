@@ -64,6 +64,10 @@ class FarouterServiceProvider extends ServiceProvider
             __DIR__.'/../stubs/RootNode.stub' => app_path('Farouter/Nodes/Root.php'),
             __DIR__.'/../stubs/RootResource.stub' => app_path('Farouter/Resources/Root.php'),
 
+            // Section Model with Resource
+            __DIR__.'/../stubs/SectionModel.stub' => app_path('Models/Section.php'),
+            __DIR__.'/../stubs/SectionResource.stub' => app_path('Farouter/Resources/Section.php'),
+
             // Laravel stubs
             __DIR__.'/../stubs/model.stub' => base_path('stubs/model.stub'),
             __DIR__.'/../stubs/migration.create.stub' => base_path('stubs/migration.create.stub'),

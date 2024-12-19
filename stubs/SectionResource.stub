@@ -2,22 +2,21 @@
 
 namespace App\Farouter\Resources;
 
+use Farouter\Fields\ID;
 use Farouter\Fields\Text;
 use Farouter\Http\Requests\FarouterRequest;
 
-class Root extends Resource
+class Section extends Resource
 {
     /**
      * The model associated with this resource.
      *
      * @var string
      */
-    public static $model = \App\Models\Root::class;
+    public static $model = \App\Models\Section::class;
 
     /**
      * The attribute used as the display title for the resource.
-     *
-     * @var string
      */
     public static string $title = 'title';
 
@@ -29,7 +28,8 @@ class Root extends Resource
     public function fields(FarouterRequest $request): array
     {
         return [
-            Text::make(__('Title'), 'title')->rules(['required']),
+            ID::make(),
+            Text::make(__('Title'))->rules(['required']),
         ];
     }
 
@@ -41,8 +41,6 @@ class Root extends Resource
      */
     public function dependencies(): array
     {
-        return [
-            Section::class,
-        ];
+        return [];
     }
 }

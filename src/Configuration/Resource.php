@@ -56,7 +56,7 @@ abstract class Resource implements JsonSerializable
      */
     public function title(): string
     {
-        return (string) $this->nodeable->{static::$title};
+        return (string) $this->nodeable?->{static::$title};
     }
 
     /**

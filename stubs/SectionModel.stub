@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Farouter\Models\Nodeable;
 
-class Root extends Nodeable
+class Section extends Nodeable
 {
     /**
      * Attributes that are mass assignable.
