@@ -56,7 +56,7 @@ abstract class Resource implements JsonSerializable
      */
     public function title(): string
     {
-        return (string) data_get($this->nodeable, static::$title);
+        return (string) $this->nodeable->{static::$title};
     }
 
     /**
@@ -127,6 +127,8 @@ abstract class Resource implements JsonSerializable
                 $dependencies = array_merge($dependencies, $solid->dependencies());
             }
         }
+
+        $dependencies = array_unique($dependencies);
 
         return [
             'title' => $this->title(),
