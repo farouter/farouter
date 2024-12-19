@@ -2,6 +2,7 @@
 
 namespace Farouter\Traits;
 
+use Illuminate\Support\Str;
 use InvalidArgumentException;
 
 trait LocaleHelper
@@ -15,6 +16,8 @@ trait LocaleHelper
      */
     public static function fromString(string $value): self
     {
+        $value = Str::upper($value);
+
         $cases = array_column(self::cases(), 'name', 'value');
 
         if (! in_array($value, $cases)) {

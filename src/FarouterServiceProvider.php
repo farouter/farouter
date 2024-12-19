@@ -35,6 +35,9 @@ class FarouterServiceProvider extends ServiceProvider
             // Migrations
             __DIR__.'/../database/migrations' => database_path('migrations'),
 
+            // Operations
+            __DIR__.'/../operations' => base_path('operations'),
+
             // Seeders
             __DIR__.'/../database/seeders' => database_path('seeders'),
 
@@ -64,6 +67,7 @@ class FarouterServiceProvider extends ServiceProvider
             // Laravel stubs
             __DIR__.'/../stubs/model.stub' => base_path('stubs/model.stub'),
             __DIR__.'/../stubs/migration.create.stub' => base_path('stubs/migration.create.stub'),
+            __DIR__.'/../stubs/deploy-operation.stub' => base_path('stubs/deploy-operation.stub'),
 
             // Assets
             // __DIR__.'/../public/build' => public_path('vendor/farouter'),

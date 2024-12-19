@@ -14,7 +14,8 @@
     "laravel/framework": "^11.0",
     "whitecube/laravel-timezones": "^1.2",
     "inertiajs/inertia-laravel": "^2.0",
-    "tightenco/ziggy": "^2.3"
+    "tightenco/ziggy": "^2.3",
+    "dragon-code/laravel-deploy-operations": "^6.3"
   },
   "autoload": {
     "psr-4": {

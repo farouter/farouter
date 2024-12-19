@@ -1,0 +1,26 @@
+<?php
+
+declare(strict_types=1);
+
+use DragonCode\LaravelDeployOperations\Operation;
+
+return new class extends Operation
+{
+    /**
+     * Executes the operations to apply changes during deployment.
+     * Implement the logic for the "up" operation here.
+     */
+    public function up(): void
+    {
+        // Implement the necessary actions for the "up" operation
+    }
+
+    /**
+     * Reverts the changes made in the "up" operation.
+     * Implement the logic for the "down" operation here.
+     */
+    public function down(): void
+    {
+        // Implement the necessary actions for the "down" operation
+    }
+};

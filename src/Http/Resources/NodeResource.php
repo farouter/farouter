@@ -17,6 +17,9 @@ class NodeResource extends JsonResource
     public function toArray(Request $request): array
     {
         $resolvedResource = Farouter::resolveResourceForModel($this->nodeable);
+        if (! $resolvedResource) {
+            dd($this->nodeable);
+        }
         $resource = new $resolvedResource(resolve(FarouterRequest::class), $this->nodeable);
 
         return [
